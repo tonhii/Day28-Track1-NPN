@@ -43,99 +43,109 @@ Câu hỏi phụ:
 
 ### Trả lời
 
-- **Cách làm chốt**: **Boost** — Claude API (model sẵn) + data riêng (rubric D28 + mapping table tự build)
-- **Lý do CẦN (không phải thích), 2–3 câu**: Bài toán phân tích text theo rubric và sinh gợi ý là việc LLM hiện tại làm tốt mà không cần train thêm. Chỉ cần bổ sung context domain-specific (rubric 5 Gate + mapping lỗi→tài liệu khóa) qua system prompt và context window — đây là Boost, không cần Build model mới hay mua tool sẵn.
-- **Vì sao KHÔNG "Build từ số 0"**: Không phải lợi thế cạnh tranh cốt lõi của AI20k, không có AI engineer trong nhóm, timeline 2 tuần không đủ cho custom model, và LLM off-the-shelf đã đủ tốt cho task này.
+- **Cách làm chốt**: **Boost** — Claude API (claude-haiku-4-5) + handbook D28 làm context (context stuffing) + system prompt strict với instruction citation và fallback "không biết"
+- **Lý do CẦN (không phải thích), 2–3 câu**: Bài toán scope-limited Q&A với grounded citation là việc LLM hiện tại làm tốt mà không cần train thêm — chỉ cần cung cấp đúng corpus và instruction. Handbook D28 (~40-60 trang) vừa trong context window Claude → không cần RAG setup phức tạp. Đây là Boost, không phải Build: chỉ thêm data riêng (handbook D28) và instruction domain-specific vào model off-the-shelf.
+- **Vì sao KHÔNG "Build từ số 0"**: Không phải lợi thế cạnh tranh cốt lõi của AI20k — nhiều tổ chức đã làm pattern này (Notion AI Q&A); không có AI engineer trong nhóm; timeline 1 tuần không đủ; LLM off-the-shelf với đúng context đã đủ tốt cho bài này.
+- **Vì sao KHÔNG RAG**: Corpus nhỏ (~40-60 trang) vừa context window → RAG overkill; setup phức tạp hơn 3-5× mà không cải thiện đáng kể cho scale này; để RAG cho Phase 2 khi cần index nhiều ngày khóa học.
 - **Tool / API / vendor cần + ước lượng chi phí thô**:
-  - Claude API (claude-haiku-4-5 hoặc claude-sonnet-4-6): ~$3–8 cho 80 bài (🧮 ước tính ~2,500 tokens/bài)
-  - Google Sheets (mapping table lỗi→tài liệu): $0
-  - Discord webhook hoặc LMS notification (gửi gợi ý): $0
-  - Tổng cash: **<$10**; effort: ~12 giờ người (xây mapping table 3h + viết prompt 3h + test 4h + setup delivery 2h)
+  - Claude API (claude-haiku-4-5): ~$1–3 cho ước tính 500 câu hỏi/tuần × ~500 tokens/câu (**🧮 ước tính**)
+  - Hosting: Python script đơn giản hoặc Claude.ai Projects: $0
+  - Tổng cash: **<$5**; effort: ~6 giờ người (đọc + format handbook 2h + viết system prompt 2h + test 10 câu mẫu 2h)
 
 ## Phần B — Data & ai review (cách làm này cần gì để chạy được)
 
 | Cần gì | Có sẵn trong AI20k? | Trong lab dùng (mẫu/giả định) | Privacy? |
 |---|---|---|---|
-| Data: Bài nộp D28 FINAL (3 file/học viên: problem-framing.md, solution.md, pitch.md) | Có sau buổi hôm nay (cần consent từ học viên) | 5 bài mẫu giả định cho test | Nhạy cảm — cần opt-in consent |
-| Data: Rubric 5 Gate D28 | Có (templates/rubric-gate-sheet.md) | Dùng nguyên file thật | Public — không vấn đề |
-| Data: Mapping table Gate/lỗi → tài liệu khóa | Chưa có, cần tự xây | Xây thử ~15 entries (5 Gate × 3 lỗi phổ biến) | Public — không vấn đề |
-| Data: Danh sách tài liệu khóa (slide, handbook, template) | Có (trong repo D28) | Dùng tên + link thật từ repo | Public — không vấn đề |
+| Data: Handbook D28 (handbook/d28-student-handbook.md) | Có (trong repo D28) | Dùng nguyên file thật | Public — không vấn đề |
+| Data: Slide skeleton D28 | Có (trong LMS) | Dùng phần có trong repo | Public — không vấn đề |
+| Data: Danh sách section/anchor trong handbook (để citation chính xác) | Có (tên section trong file markdown) | Dùng tên section thật | Public — không vấn đề |
+| Input: Câu hỏi học viên (trong pilot) | Chưa có — cần collect trong buổi | 10 câu hỏi mẫu giả định cho test | Cần consent nếu log để cải thiện |
 
-- **Output nào rủi ro cao**: Gợi ý tài liệu sai (AI trỏ tài liệu không tồn tại hoặc không liên quan) → học viên mất thời gian, mất tin tưởng vào hệ thống.
-- **Ai review + bao nhiêu mẫu + pass/fail theo gì**: 1–2 coach track Product review 100% output trước khi gửi học viên (Phase 1: review 5 mẫu test; Phase 2: review tất cả 80 output — ước tính ~45 giây/output = ~1 giờ tổng). Pass: tài liệu tồn tại trong khóa + liên quan đến lỗi phát hiện. Fail: bịa tài liệu / gợi ý chung chung không bám lỗi cụ thể.
-- **Có cần citation / nói "không biết" khi thiếu nguồn không**: CÓ — bắt buộc. System prompt phải yêu cầu AI chỉ gợi ý tài liệu có trong mapping table; nếu không map được lỗi cụ thể → ghi "Không tìm thấy tài liệu phù hợp, liên hệ coach" thay vì bịa.
+- **Output nào rủi ro cao**: Câu trả lời trỏ sai section (section không tồn tại hoặc không liên quan) → học viên đọc sai chỗ, mất thời gian, mất tin tưởng vào chatbot.
+- **Ai review + bao nhiêu mẫu + pass/fail theo gì**: 1 coach track Product review 10 câu test trước khi deploy cho 80 học viên (~30 phút). Pass: câu trả lời trỏ đúng section tồn tại trong handbook + nội dung phù hợp câu hỏi. Fail: trỏ section không tồn tại (hallucination) HOẶC trả lời câu hỏi ngoài phạm vi D28 mà không nói "không biết".
+- **Có cần citation / nói "không biết" khi thiếu nguồn không**: CÓ — bắt buộc. System prompt phải yêu cầu: (1) mọi câu trả lời kèm "— Nguồn: handbook §X" hoặc "— Nguồn: slide §Y"; (2) nếu không tìm thấy section liên quan trong tài liệu → "Câu hỏi này nằm ngoài phạm vi tài liệu D28. Vui lòng hỏi coach trên Discord." Không được generate câu trả lời mà không có nguồn.
 
 ## Phần C — Bản vẽ trực quan (BẮT BUỘC)
 
 Chọn **1** dạng nhẹ nhất đủ rõ (xem `templates/demo-examples.md`): mockup 2–3 màn hình · user flow trước/sau · prompt flow · agent flow · 1 cặp input–output thật. Vẽ tay / ASCII / bảng đều được.
 
 ```text
-=== PROMPT FLOW: AI D28 Gap Analyzer ===
+=== PROMPT FLOW: Chatbot Gia Sư D28 ===
 
 TRƯỚC (hiện tại):
-[Học viên nộp bài D28]
+[Học viên đọc handbook D28]
         │
-        ▼
-[Nhận feedback nhóm chung sau pitch]
+        ▼  ← gặp concept không hiểu (Exit Criteria, Double Diamond vòng 2...)
+[Post câu hỏi lên Discord]
         │
-        ▼  ← không có gợi ý cá nhân
-[Vào 6 tuần thực chiến với lỗ hổng chưa biết]
+        ▼  ← đợi 30–60 phút
+[Coach hoặc bạn trả lời (nếu có)]
+        │
+        ▼  ← hoặc bỏ qua, vào lab với concept mơ hồ
+[Vào lab / làm bài nộp]
 
 
 SAU (với Quick Win):
-[Học viên nộp bài D28]
+[Học viên đọc handbook D28]
+        │
+        ▼  ← gặp concept không hiểu
+[Hỏi Chatbot Gia Sư D28 (link/bot)]
         │
         ▼
-[3 file FINAL: problem-framing.md + solution.md + pitch.md]
+┌────────────────────────────────────────────────────────┐
+│  SYSTEM PROMPT (Claude Haiku API)                       │
+│  • Toàn bộ handbook D28 (context stuffed)              │
+│  • Instruction: chỉ trả lời từ tài liệu D28           │
+│  • Format bắt buộc: [Trả lời] — Nguồn: handbook §X    │
+│  • Fallback bắt buộc: nếu không thấy section liên quan │
+│    → "Ngoài phạm vi D28, hỏi coach trên Discord"      │
+└────────────────────────────────────────────────────────┘
         │
         ▼
-┌─────────────────────────────────────────────────┐
-│  SYSTEM PROMPT (Claude API)                      │
-│  • Rubric 5 Gate D28 (tiêu chí đạt/không đạt)  │
-│  • Mapping table: Gate lỗi → tên tài liệu + link│
-│  • Instruction: chỉ gợi ý tài liệu có trong     │
-│    mapping table; nếu không map được → nói rõ   │
-└─────────────────────────────────────────────────┘
+[Claude phân tích câu hỏi → tìm section liên quan trong handbook]
+        │
+        ├─── Tìm thấy section → sinh câu trả lời kèm nguồn
+        │
+        └─── Không tìm thấy → fallback "ngoài phạm vi"
         │
         ▼
-[Claude phân tích từng Gate → phát hiện lỗ hổng]
+[⚠️ COACH REVIEW (trước lần đầu deploy) ⚠️]
+  Coach kiểm tra 10 câu test: section có tồn tại? nội dung phù hợp?
+  → Pass / Fail
+        │ pass
+        ▼
+[Deploy cho 80 học viên track Product]
         │
         ▼
-┌─────────────────────────────────────────────────┐
-│  OUTPUT cá nhân hóa (draft):                    │
-│  "Bài của bạn đạt Gate 1, 2. Cần xem lại:      │
-│  1. [Tên tài liệu] — lý do: Gate 3 thiếu số    │
-│  2. [Tên tài liệu] — lý do: Gate 5 thiếu exit  │
-│  3. [Tên tài liệu] — lý do: ..."               │
-└─────────────────────────────────────────────────┘
-        │
-        ▼
-[⚠️ COACH REVIEW — chỗ con người review ⚠️]
-  Coach xem: tài liệu có tồn tại? gợi ý đúng lỗi?
-  → Approve / Edit / Reject
-        │ approve
-        ▼
-[Gửi cho học viên qua Discord DM / LMS]
-        │
-        ▼
-[Học viên nhận, click tài liệu, học lại trước sprint]
+[Học viên nhận câu trả lời trong ~5 giây, đọc lại section, hiểu concept]
 
 
 === CẶP INPUT–OUTPUT MẪU ===
 
-INPUT (trích từ bài nộp giả định):
-  "Exit criteria: nếu pilot thất bại thì dừng"
+INPUT (câu hỏi học viên):
+  "Exit criteria là gì? Khác gì với KPI bình thường?"
 
-OUTPUT AI (draft):
-  Gate 5 — Pilot Plan: Exit criteria thiếu ngưỡng cụ thể
-  và chưa ghi ai có quyền dừng.
-  → Xem lại: "templates/ai-pilot-plan-core.md" (mục Exit Criteria)
-     + "handbook/d28-student-handbook.md" §A8
+OUTPUT Chatbot (draft):
+  Exit criteria là điều kiện được đặt TRƯỚC khi chạy pilot, xác định
+  ngưỡng cụ thể mà nếu không đạt → dừng pilot ngay, không cần thảo luận.
+  Khác KPI ở chỗ: KPI đo hiệu quả chung, exit criteria là điểm dừng rõ ràng
+  có người có quyền thực thi.
+
+  — Nguồn: handbook/d28-student-handbook.md §A8 (mục Exit Criteria)
+
+---
+
+INPUT (câu hỏi ngoài phạm vi):
+  "Tôi nên chọn ngành gì để học AI?"
+
+OUTPUT Chatbot:
+  Câu hỏi này nằm ngoài phạm vi tài liệu D28.
+  Vui lòng hỏi coach trên Discord để được tư vấn phù hợp với bạn.
 
 Chỗ con người review (output rủi ro cao) nằm ở:
-  Bước "COACH REVIEW" — trước khi gửi cho học viên.
-  Coach kiểm tra: (1) tài liệu gợi ý có trong khóa không?
-                  (2) lý do gợi ý có khớp với lỗi thật không?
+  Bước "COACH REVIEW" — trước lần đầu deploy.
+  Coach kiểm tra: (1) section trong "— Nguồn:" có tồn tại trong handbook?
+                  (2) nội dung câu trả lời có khớp với câu hỏi không?
 ```
 
 Câu hỏi phụ — một người đóng vai stakeholder nhìn 20 giây: *hiểu user làm gì, nhận lại gì, không cần giải thích thêm không? Có chỗ nào "đẹp nhưng rỗng" không?*
@@ -146,9 +156,9 @@ Câu hỏi phụ — một người đóng vai stakeholder nhìn 20 giây: *hi�
 
 | Hạng mục | Xong? |
 |---|---|
-| Cách làm có lý do CẦN, không phải "mặc định tự build" | ✓ (Boost vì LLM đủ tốt, không phải core advantage) |
-| Nói rõ data cần + ai review output rủi ro cao | ✓ (coach review 100% trước khi gửi) |
-| Có ≥1 bản vẽ trực quan, người ngoài hiểu trong ~20 giây | ✓ (prompt flow + trước/sau + cặp I/O mẫu) |
+| Cách làm có lý do CẦN, không phải "mặc định tự build" | ✓ (Boost vì LLM đủ tốt + corpus nhỏ vừa context, không phải core advantage) |
+| Nói rõ data cần + ai review output rủi ro cao | ✓ (coach review 10 câu test trước deploy) |
+| Có ≥1 bản vẽ trực quan, người ngoài hiểu trong ~20 giây | ✓ (prompt flow + trước/sau + 2 cặp I/O mẫu) |
 | Có đánh dấu chỗ con người review | ✓ (⚠️ COACH REVIEW trong flow) |
 
 ⚑ Coach kiểm tra ở Mốc 3: *"Stakeholder nhìn vào đâu để hiểu flow? Mockup/sketch/demo đâu?"* Chỉ nói bằng chữ = chưa qua.

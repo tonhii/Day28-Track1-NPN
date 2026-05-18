@@ -35,57 +35,62 @@ Câu hỏi phụ (tự trả lời trước khi điền):
 
 ### Trả lời
 
-1. **Original Ask** (stakeholder nói gì, nguyên văn): "Xây hệ thống AI cá nhân hóa lộ trình học cho từng học viên dựa trên mục tiêu, level, tiến độ, điểm yếu và hành vi học tập"
+1. **Original Ask** (stakeholder nói gì, nguyên văn): "Biến LMS thành gia sư tương tác cho ~500 học viên — học viên đọc bài, hỏi lại, làm mini practice, nhận giải thích theo level, có dẫn nguồn từ tài liệu khóa học"
 
-2. **Reframed problem** (vấn đề thật sau khi tách): Học viên track Product (~80 người) vừa hoàn thành D28 không biết họ còn yếu concept nào trong Problem Framing, Build/Buy/Boost, AI Pilot Plan — và không có cơ chế nào sinh gợi ý cá nhân hóa những gì cần xem lại trước khi bước vào 6 tuần thực chiến. Kết quả: học viên vào sprint với lỗ hổng kiến thức chưa được vá.
+2. **Reframed problem** (vấn đề thật sau khi tách): Học viên track Product (~80 người) đang đọc handbook D28 gặp concept không hiểu — không có cơ chế hỏi-đáp tức thì trong phạm vi tài liệu khóa. Phải post Discord và đợi 30-60 phút (hoặc bỏ qua), dẫn đến vào lab với concept hiểu sai. Kết quả: framing sai, pilot plan thiếu chỉ số, bài nộp trượt Gate.
 
-3. **Current workflow** (hiện tại đang xử lý thế nào, kể cả "không ai làm gì"): Học viên nộp bài D28 → nhận feedback nhóm chung sau buổi pitch → không nhận gợi ý cá nhân → tự đọc lại toàn bộ slide/handbook (hầu như không ai làm do thiếu định hướng) hoặc hỏi Discord ngẫu nhiên. Coach đưa feedback nhóm, không thể đưa gợi ý cá nhân cho từng người trong 80 học viên.
+3. **Current workflow** (hiện tại đang xử lý thế nào, kể cả "không ai làm gì"): Học viên đọc handbook D28 → gặp concept khó (Double Diamond, Exit Criteria, Build/Buy/Boost) → hoặc bỏ qua, hoặc post Discord (chờ coach/bạn trả lời ~30-60 phút), hoặc Google (câu trả lời không khớp với định nghĩa của khóa) → vào lab với hiểu biết không chắc.
 
 4. **Pain evidence — bằng SỐ** (ai đau · đau ở khoảnh khắc nào trong việc · tần suất · quy mô; số giả định ghi rõ nguồn giả định):
 
 ```text
-• 🧮 Giả định: ~60% học viên track Product D28 có ≥1 Gate trượt trong 5 Gate rubric
-  (Problem Framing hoặc Pilot Plan yếu) nhưng không nhận gợi ý cá nhân về concept cần bù.
-  Nguồn giả định: ước tính từ pattern lỗi phổ biến trong README D28 (mục "Lỗi hay mắc").
+• 🧮 Giả định: Discord D28 nhận ~50–80 câu hỏi/buổi từ 80 học viên track Product
+  về concept (Problem Framing, Build/Buy/Boost, Exit Criteria, Double Diamond).
+  Nguồn giả định: ước tính từ pattern câu hỏi điển hình trong buổi lab nhiều module.
 
-• 🧮 Giả định: Nếu coach làm thủ công, cần ~5 phút/học viên để đọc bài và đưa gợi ý cá nhân
-  → 80 học viên × 5 phút = 400 phút (~6.7 giờ/cohort) — không khả thi với lịch coach.
-  Nguồn giả định: ước tính dựa trên độ phức tạp của bài nộp D28 (3 file FINAL).
+• 🧮 Giả định: ~40% câu hỏi Discord đó có thể trả lời bằng cách trỏ thẳng về
+  1 đoạn trong handbook D28 — chứng tỏ học viên không tìm thấy nội dung tài liệu
+  hoặc không biết tìm ở đâu. Nguồn: ước tính dựa trên loại câu hỏi định nghĩa
+  ("Exit criteria là gì?", "Double Diamond vòng 2 khác gì vòng 1?").
 
-• Số thật có thể verify ngay: D28 rubric 5 Gate (có trong templates/rubric-gate-sheet.md)
-  + bài nộp D28 của 80 học viên track Product (có sau buổi hôm nay).
+• 🧮 Giả định: Coach mất ~15–20 phút/buổi trả lời câu hỏi Discord lặp lại
+  (câu đã có trong handbook, chỉ cần trỏ section) thay vì tập trung coaching chiều sâu.
+  Nguồn: ước tính; số thật cần log Discord thực tế.
+
+• Số thật có thể verify ngay: handbook D28 (handbook/d28-student-handbook.md) +
+  slide skeleton + log câu hỏi Discord buổi D28 hôm nay — có sau buổi.
 ```
 
 5. **Affected people** (ai dùng · ai quyết · ai là người review/expert):
-   - **Người dùng**: ~80 học viên track Product D28
+   - **Người dùng**: ~80 học viên track Product D28 (trong buổi học và sau buổi)
    - **Người quyết approve pilot**: Instructor D28 / Program Lead
-   - **Người review output**: 1–2 coach track Product (review gợi ý AI trước khi gửi học viên)
+   - **Người review output**: 1 coach track Product (review 10 câu test trước khi mở cho học viên)
 
 6. **Constraints** (từ `00-context.md`):
-   - **Privacy**: bài nộp D28 là data cá nhân → cần consent rõ trước khi AI đọc; trong lab dùng 5 bài mẫu giả định
-   - **Human review**: gợi ý cá nhân hóa là output ảnh hưởng lộ trình học → coach phải xem qua trước khi gửi học viên
-   - **Citation**: tài liệu gợi ý phải trỏ đúng tên slide/handbook trong khóa, không được bịa
-   - **Budget nhỏ**: ưu tiên API sẵn có, ước tính <$10 tổng cho 80 học viên
-   - **Formative**: gợi ý là hỗ trợ học, không phải điểm chính thức
-   - **Adoption**: nếu không ai click vào tài liệu gợi ý → pilot thất bại dù accuracy cao
+   - **Privacy**: câu hỏi học viên hỏi chatbot không lưu trữ lâu dài hoặc chia sẻ mà không có consent; trong lab test chỉ dùng câu hỏi mẫu giả định
+   - **Human review**: trước khi deploy cho 80 học viên, coach review 10 câu test để xác nhận chatbot không bịa nguồn
+   - **Citation**: chatbot phải trỏ đúng section trong handbook D28 (ví dụ "handbook §A3"); nếu không tìm thấy nguồn → nói "không biết", không được bịa
+   - **Budget nhỏ**: ưu tiên Claude Haiku API hoặc context window đơn giản, ước tính <$5 cho pilot 1 tuần
+   - **Adoption**: nếu học viên không hỏi chatbot (vẫn đi Discord) → pilot thất bại dù accuracy 99%; cần onboarding rõ
+   - **Ranh giới gia sư/đáp án**: chatbot hỗ trợ hiểu tài liệu, không làm bài thay học viên; cần prompt phân biệt rõ
 
-7. **Quick Win đã chọn** (1 dòng, lấy từ file `2`): AI phân tích bài nộp D28 theo rubric 5 Gate → sinh danh sách cá nhân 3 concept/tài liệu cần xem lại trước 6 tuần thực chiến
+7. **Quick Win đã chọn** (1 dòng, lấy từ file `2`): Chatbot gia sư D28 — học viên hỏi về handbook D28 → nhận câu trả lời kèm nguồn cụ thể (section + đoạn trích); nói "không biết" nếu câu hỏi ngoài phạm vi
 
 8. **Open questions** (còn chưa biết gì — không được để trống):
-   - Học viên có consent cho AI đọc bài nộp không? Quy trình consent là gì (opt-in hay mặc định)?
-   - Kênh gửi gợi ý nào học viên thật sự đọc — Discord DM, LMS notification, hay email?
-   - Rubric 5 Gate D28 có đủ granular để map "lỗi X → tài liệu Y cụ thể" không, hay cần xây thêm mapping table riêng?
+   - Kênh deploy nào phù hợp nhất cho 80 học viên — trong LMS, Discord bot, hay link standalone Claude.ai?
+   - Học viên thật sự sẽ dùng chatbot hay vẫn dùng Discord? Cần onboarding thế nào?
+   - Handbook D28 có đủ bao phủ các câu hỏi phổ biến nhất không, hay cần bổ sung thêm slide skeleton vào context?
 
 9. **Validation** (đóng vai owner: *"đúng, đây là vấn đề đáng giải"* — Có / Chưa, vì sao):
 
 ```text
 Đóng vai Instructor D28 / Program Lead:
 
-"Đúng — đây là vấn đề đáng giải. Sau D28, học viên bước vào 6 tuần thực chiến mà không
-có gì bridge cá nhân hóa giữa bài nộp và kế hoạch bù kiến thức. Nếu nhóm có thể chứng
-minh trong 2 tuần rằng ≥70% gợi ý AI được coach đánh giá phù hợp (không phải gợi ý
-chung chung) và ≥50% học viên thực sự click vào tài liệu được gợi ý, xứng đáng mở rộng
-cho các track khác trong khóa."
+"Đúng — đây là vấn đề đáng giải. Học viên hỏi Discord về khái niệm có sẵn trong handbook
+là dấu hiệu rõ: LMS chưa đủ tương tác. Nếu nhóm có thể chứng minh trong 1 tuần rằng
+≥80% câu trả lời của chatbot có nguồn đúng từ handbook (không bịa section) và
+≥40% học viên track Product thật sự dùng ít nhất 1 lần, xứng đáng mở rộng sang
+toàn bộ D28 và các ngày khác trong khóa."
 
 → CÓ xác nhận. Vấn đề rõ, scope pilot nhỏ, metric đo được.
 ```
@@ -94,8 +99,8 @@ cho các track khác trong khóa."
 
 ## Tự phản biện
 
-- Khung này còn câu chung chung kiểu "cần học tốt hơn" không? → Không. Đã chỉ rõ: 80 học viên track Product, sau D28, tại khoảnh khắc chuyển sang 6 tuần thực chiến, lỗ hổng cụ thể là concept trong Problem Framing/Pilot Plan.
-- 3 câu sẽ bị hỏi — trả lời câu 1: *"Số liệu lấy ở đâu?"* → ~60% học viên trượt Gate và 5 phút/học viên của coach là 🧮 giả định, đánh dấu rõ. Số thật (bài nộp D28 thật + rubric) có thể verify ngay sau buổi hôm nay.
+- Khung này còn câu chung chung kiểu "học viên cần học tốt hơn" không? → Không. Đã chỉ rõ: 80 học viên track Product, khoảnh khắc đọc handbook D28, pain cụ thể là không có cơ chế hỏi-đáp tức thì kèm nguồn, đo được bằng % câu trả lời đúng nguồn và % học viên dùng.
+- 3 câu sẽ bị hỏi — trả lời câu 1: *"Số liệu lấy ở đâu?"* → Ba con số chính (50-80 câu hỏi/buổi, 40% trả lời được bằng handbook, 15-20 phút coach mất) là 🧮 giả định, đánh dấu rõ. Số thật có thể verify từ log Discord buổi D28 hôm nay + thời gian coach đo sau buổi.
 
 ---
 
@@ -103,9 +108,9 @@ cho các track khác trong khóa."
 
 | Hạng mục | Xong? |
 |---|---|
-| Chỉ rõ 1 nhóm người + 1 khoảnh khắc cụ thể (không "user nói chung") | ✓ (80 học viên track Product, sau D28, trước 6 tuần thực chiến) |
-| Pain có số (hoặc kế hoạch lấy số), nói rõ số từ đâu | ✓ (🧮 đánh dấu rõ; kế hoạch verify từ bài nộp D28 thật) |
-| Có baseline (hoặc cách đo baseline) + ≥1 chỉ số có ngưỡng | ✓ (baseline: 0% nhận gợi ý cá nhân; ngưỡng: ≥70% coach chấp nhận) |
+| Chỉ rõ 1 nhóm người + 1 khoảnh khắc cụ thể (không "user nói chung") | ✓ (80 học viên track Product, khi đọc handbook D28, gặp concept không hiểu) |
+| Pain có số (hoặc kế hoạch lấy số), nói rõ số từ đâu | ✓ (🧮 đánh dấu rõ; kế hoạch verify từ log Discord buổi D28) |
+| Có baseline (hoặc cách đo baseline) + ≥1 chỉ số có ngưỡng | ✓ (baseline: 0% có chatbot hỗ trợ; ngưỡng: ≥80% câu trả lời đúng nguồn) |
 | Mục 9: owner (giả định) xác nhận đúng vấn đề = qua cổng phase Frame | ✓ |
 
 ⚑ Coach kiểm tra ở Mốc 2: *"Ai đau? Baseline là gì? Không có baseline thì đo thế nào?"*

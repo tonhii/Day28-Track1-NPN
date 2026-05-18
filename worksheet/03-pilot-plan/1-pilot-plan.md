@@ -35,71 +35,71 @@ Câu hỏi phụ (tự trả lời):
 
 ### Trả lời
 
-1. **Tóm vấn đề** (1 câu, từ Problem Framing): Học viên track Product sau D28 không biết mình còn yếu concept nào và không nhận được gợi ý cá nhân để chuẩn bị vào 6 tuần thực chiến.
+1. **Tóm vấn đề** (1 câu, từ Problem Framing): Học viên track Product đọc handbook D28 gặp concept không hiểu — không có cơ chế hỏi-đáp tức thì trong phạm vi tài liệu khóa, phải đợi Discord 30-60 phút hoặc bỏ qua.
 
-2. **Cách làm + lý do** (từ 02-solution, 1 câu): Boost — Claude API phân tích bài nộp D28 theo rubric 5 Gate + mapping table lỗi→tài liệu khóa, sinh gợi ý 3 tài liệu cần xem lại cá nhân hóa, coach review trước khi gửi.
+2. **Cách làm + lý do** (từ 02-solution, 1 câu): Boost — Claude Haiku API phân tích câu hỏi học viên dựa trên handbook D28 nhét toàn bộ vào context, sinh câu trả lời kèm nguồn §X, nói "không biết" nếu câu hỏi ngoài phạm vi, coach review 10 câu test trước khi deploy.
 
-3. **Scope pilot**: 80 học viên track Product · cohort D28 (buổi hôm nay) · 2 tuần sau D28 · 2 phase (Phase 1: build + test 5 mẫu; Phase 2: chạy đủ 80 + deliver)
+3. **Scope pilot**: 80 học viên track Product · buổi D28 và 1 tuần sau D28 · 2 phase (Phase 1: build + test; Phase 2: deploy + collect feedback)
 
 4. **Người**:
-   - **Build + chạy pipeline**: Hồ Thị Tố Nhi (nhóm trưởng kỹ thuật)
-   - **Hỗ trợ prompt + mapping table**: Lê Thị Phương, Trần Thị Kim Ngân
-   - **Review output rủi ro cao**: 1–2 coach track Product (review trước khi gửi học viên)
+   - **Build + viết system prompt + test**: Hồ Thị Tố Nhi (nhóm trưởng kỹ thuật)
+   - **Hỗ trợ format handbook + thiết kế câu hỏi test**: Lê Thị Phương, Trần Thị Kim Ngân
+   - **Review output rủi ro cao (10 câu test)**: 1 coach track Product (confirm trước khi deploy)
    - **Quyết approve/dừng**: Instructor D28 / Program Lead
 
 5. **Data**:
-   - Bài nộp D28 FINAL của 80 học viên (3 file/học viên) — cần opt-in consent; trong Phase 1 test dùng 5 bài mẫu giả định
-   - Rubric 5 Gate D28 (có sẵn: `templates/rubric-gate-sheet.md`) — public, không vấn đề
-   - Mapping table lỗi→tài liệu (tự build, ~15 entries) — public
-   - Privacy: bài nộp chỉ đọc trong session xử lý, không lưu trữ lâu dài; consent rõ trong email thông báo
+   - Handbook D28 (handbook/d28-student-handbook.md) — có sẵn trong repo, public, dùng nguyên
+   - Slide skeleton D28 (nếu cần bổ sung context) — có sẵn trong LMS, public
+   - Câu hỏi học viên trong pilot — cần thông báo rõ "chatbot log câu hỏi để cải thiện"; trong Phase 1 test chỉ dùng 10 câu hỏi mẫu giả định
+   - Privacy: không lưu câu hỏi học viên lâu dài nếu không có consent; trong Phase 1 chỉ dùng câu hỏi mẫu
 
 6. **Budget** (tách hạng mục):
-   - Claude API (Haiku/Sonnet): ~$5–8 cho 80 bài × ~2,500 tokens (**🧮 ước tính**)
-   - Overhead + retry + test: ~$2
-   - Thời gian người build (3 người × 4 giờ): ~12 giờ × $0 (học viên tự làm)
-   - Thời gian coach review (1–2 coach × 1 giờ): ~2 giờ coach time
-   - Maintenance sau pilot: $0 (one-shot cho cohort D28)
-   - **Tổng cash: <$10**
+   - Claude Haiku API: ~$1–3 cho ước tính 500 câu hỏi/tuần × ~500 tokens/câu (**🧮 ước tính**)
+   - Overhead + retry + test 10 câu: ~$1
+   - Thời gian người build (3 người × 2 giờ): ~6 giờ × $0 (học viên tự làm)
+   - Thời gian coach review (1 coach × 30 phút): ~0.5 giờ coach time
+   - Maintenance sau pilot: $0 (context stuffing không cần infra riêng)
+   - **Tổng cash: <$5**
 
 7. **Timeline + cổng giữa phase**:
-   - **Phase 1** (1 tuần sau D28): Xây mapping table + viết system prompt + test với 5 bài mẫu giả định
-     → **Cổng Phase 1**: ≥4/5 coach đánh giá gợi ý phù hợp trên 5 mẫu → tiếp tục Phase 2. Dưới → chỉnh prompt, không sang Phase 2.
-   - **Phase 2** (tuần 2): Thu consent + chạy cho 80 học viên → coach review → gửi → thu feedback trong 3 ngày
+   - **Phase 1** (ngày 1–2 sau D28): Format handbook D28 → viết system prompt → test với 10 câu hỏi mẫu → coach review
+     → **Cổng Phase 1**: ≥8/10 câu test coach xác nhận đúng nguồn + phù hợp → tiếp tục Phase 2. Dưới → chỉnh system prompt, test lại, không deploy.
+   - **Phase 2** (ngày 3–7): Deploy link/bot cho 80 học viên track Product → thu feedback sau 5 ngày (số lượng câu hỏi, % nói "không biết", feedback học viên)
 
 8. **Metrics** (SMART + baseline + ngưỡng + ai đo):
 
 | Metric | Đo bằng gì · ai đo | Baseline | Ngưỡng đạt |
 |---|---|---|---|
-| % gợi ý được coach đánh giá phù hợp (tài liệu đúng + lý do khớp lỗi) | Coach đánh giá Y/N mỗi gợi ý trước khi gửi · người build log lại | 0% (không có hệ thống hiện tại) | ≥70% |
-| % học viên click ≥1 tài liệu được gợi ý trong 1 tuần | Link tracking (bit.ly hoặc LMS analytics) · người build theo dõi | 0% | ≥50% |
-| Thời gian coach tiết kiệm/học viên so với làm thủ công | Coach log thời gian review AI output (🧮 baseline ~5 phút/học viên nếu thủ công) | 🧮 ~5 phút/học viên | ≤1.5 phút/học viên |
+| % câu trả lời kèm nguồn đúng (section tồn tại trong handbook + nội dung phù hợp câu hỏi) | Coach đánh giá Y/N trên 10 câu test Phase 1 · người build log lại | 0% (không có chatbot hiện tại) | ≥80% |
+| % học viên track Product dùng chatbot ≥1 lần trong tuần | Log số unique user (không log nội dung nếu không có consent) · người build theo dõi | 0% | ≥40% |
+| % câu hỏi chatbot trả lời "ngoài phạm vi" (fallback rate) — dùng để calibrate scope | Log tự động | 0% (chưa có data) | ≤30% (nếu cao hơn → handbook chưa cover đủ) |
 
-   **Leading indicator** (biết kết quả sớm trong 1–2 tuần): Kết quả cổng Phase 1 — nếu ≥4/5 mẫu coach chấp nhận → confidence cao cho Phase 2.
+   **Leading indicator** (biết kết quả sớm trong 1–2 ngày): Kết quả cổng Phase 1 — nếu ≥8/10 câu test coach chấp nhận → confidence cao cho Phase 2.
 
 9. **Exit criteria** (định trước, ≥2 mức):
 
 | Mức | Điều kiện | Hành động | Ai có quyền dừng |
 |---|---|---|---|
-| Cảnh báo | <50% gợi ý coach chấp nhận sau test 5 mẫu (Phase 1) | Không sang Phase 2; chỉnh lại prompt + mapping table; test lại | Người build (Hồ Thị Tố Nhi) |
-| Nghiêm trọng | AI trỏ tài liệu không tồn tại trong khóa (citation sai) HOẶC học viên phản hồi gợi ý gây hiểu nhầm nghiêm trọng về lộ trình học | Dừng pilot ngay, không gửi thêm output, thông báo tất cả học viên đã nhận, báo coach + Program Lead | Program Lead / Instructor D28 |
+| Cảnh báo | <8/10 câu test coach chấp nhận sau Phase 1 | Không sang Phase 2; chỉnh system prompt; test lại bộ 10 câu mới | Người build (Hồ Thị Tố Nhi) |
+| Nghiêm trọng | Chatbot trỏ section không tồn tại trong handbook (citation hallucination) HOẶC trả lời câu hỏi ngoài phạm vi D28 mà không nói "không biết" | Dừng pilot ngay, không deploy thêm, thông báo học viên đang dùng, báo coach + Program Lead | Program Lead / Instructor D28 |
 
    *Liên hệ 2 Red Flag:*
-   - **Red Flag #1 (cá nhân hóa giả)**: Được chặn bởi cổng Phase 1 — coach kiểm tra từng gợi ý có khác nhau và có bám lỗi cụ thể không.
-   - **Red Flag #2 (không đo được)**: Được chặn bởi 3 metric rõ ràng với baseline và ngưỡng định trước.
+   - **Red Flag #1 (bịa nội dung)**: Được chặn bởi instruction guard trong system prompt + cổng Phase 1 — coach kiểm tra từng câu trả lời có section thật không.
+   - **Red Flag #2 (học viên hỏi bot thay vì đọc)**: Được chặn bởi prompt design — chatbot luôn trỏ về section cụ thể để học viên tự đọc; không đưa tóm tắt thay thế việc đọc. Đo bằng metric fallback rate và feedback học viên.
 
 10. **Adoption** (tool không ai dùng = $0):
-    - **Ai dùng đầu tiên**: 80 học viên track Product D28 — nhóm sẵn sàng nhất (vừa nộp bài, đang cần biết phải bù gì)
-    - **Workflow đổi ở đâu**: Sau khi nộp bài D28 → thay vì không nhận gì → học viên nhận thêm 1 message cá nhân (Discord DM hoặc LMS) với danh sách 3 gợi ý trong vòng 48 giờ
-    - **Ai thông báo + support**: Coach announce trong recap buổi D28 ("trong 2 ngày tới các bạn sẽ nhận gợi ý cá nhân..."); nhóm build trả lời câu hỏi kỹ thuật nếu link không mở được
-    - **Nếu click rate <30% sau 1 tuần**: Khảo sát nhanh 5 học viên ngẫu nhiên (gợi ý không relate? sai kênh gửi? sai thời điểm?) → điều chỉnh kênh hoặc format, ghi vào lesson learned
+    - **Ai dùng đầu tiên**: 80 học viên track Product đang đọc handbook D28 trong buổi lab — nhóm có pain ngay lập tức (gặp concept không hiểu trong buổi)
+    - **Workflow đổi ở đâu**: Thay vì post Discord khi không hiểu → hỏi chatbot trước; nếu chatbot nói "không biết" → mới post Discord
+    - **Ai thông báo + support**: Coach giới thiệu chatbot đầu buổi D28 ("hôm nay chúng ta có chatbot riêng cho handbook D28, hỏi nó trước khi post Discord"). Nhóm build để link/hướng dẫn trong kênh Discord buổi.
+    - **Nếu usage <20% sau 3 ngày**: Phỏng vấn nhanh 3-5 học viên (không biết link? link không mở được? không tin chatbot?). Điều chỉnh kênh announce hoặc format trả lời theo feedback; ghi vào lesson learned.
 
 ---
 
 ## Tự phản biện
 
-- **Budget thiếu hạng mục ẩn nào không?** Đã tách API cost + retry + thời gian người. Hạng mục ẩn còn lại: nếu cần thay model sang Sonnet (đắt hơn ~5×) → tổng API ~$25–40. Vẫn trong budget nhỏ.
-- **Exit criteria đủ mạnh để THẬT SỰ dừng, hay chỉ trên giấy?** Mức Nghiêm trọng giao quyền dừng cho Program Lead (người ngoài nhóm build) — không thể bị nhóm override vì "muốn tiếp tục".
-- **Giả định quan trọng nhất sai → plan gì?** Giả định: coach có ~1 giờ để review 80 output. Nếu sai (coach bận >3 giờ) → thu hẹp scope Phase 2 xuống 20 học viên tình nguyện trước, rồi mở rộng sau.
+- **Budget thiếu hạng mục ẩn nào không?** Đã tách API cost + retry + thời gian người + coach time. Nếu cần upgrade sang Sonnet (đắt hơn ~5×) → tổng API ~$5–15. Vẫn trong budget nhỏ.
+- **Exit criteria đủ mạnh để THẬT SỰ dừng, hay chỉ trên giấy?** Mức Nghiêm trọng giao quyền dừng cho Program Lead (người ngoài nhóm build) — không thể bị nhóm override. Điều kiện dừng là kỹ thuật (citation hallucination), không cần judgement — dễ thực thi.
+- **Giả định quan trọng nhất sai → plan gì?** Giả định: handbook D28 đủ phủ các câu hỏi phổ biến của học viên. Nếu sai (fallback rate >50%) → bổ sung slide skeleton vào context; nếu vẫn cao → thu thập top 20 câu hỏi thật từ Discord để thêm vào FAQ guard trong system prompt.
 
 ---
 
@@ -109,9 +109,9 @@ Câu hỏi phụ (tự trả lời):
 |---|---|
 | Tóm vấn đề trong 1 câu | ✓ |
 | Budget tách hạng mục, không "miscellaneous" | ✓ (API + retry + thời gian người + coach time) |
-| Metric có baseline + ngưỡng + ai đo | ✓ (3 metric, 2 có baseline thật, 1 có 🧮 rõ) |
+| Metric có baseline + ngưỡng + ai đo | ✓ (3 metric, có baseline rõ, có ngưỡng định trước) |
 | Exit criteria có người có quyền thực thi (≥2 mức) | ✓ (Cảnh báo: người build; Nghiêm trọng: Program Lead) |
-| Adoption: chỉ rõ ai dùng đầu tiên (không "cả khóa") | ✓ (80 học viên track Product D28, kênh Discord DM/LMS) |
+| Adoption: chỉ rõ ai dùng đầu tiên (không "cả khóa") | ✓ (80 học viên track Product D28, kênh Discord + link đầu buổi) |
 
 ⚑ Coach kiểm tra ở Mốc 4: *"Xin gì? Hứa gì? Đo gì? Dừng khi nào?"*
 

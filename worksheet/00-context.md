@@ -23,16 +23,16 @@ Việc của nhóm hôm nay đúng là việc một PM/PO AI làm ngoài doanh n
 
 ## 2. Track của nhóm (điền sau khi nhận track card)
 
-- **Track số / tên**: Track 1 — Lộ trình học cá nhân hóa
+- **Track số / tên**: Track 2 — Gia sư LMS tương tác
 - **Big Ask — chép nguyên văn câu yêu cầu trong track card**:
 
 ```text
-Xây hệ thống AI cá nhân hóa lộ trình học cho từng học viên dựa trên mục tiêu, level,
-tiến độ, điểm yếu và hành vi học tập của họ trên khóa AI Thực Chiến (~500 học viên).
+Biến LMS thành gia sư tương tác cho ~500 học viên — học viên đọc bài, hỏi lại,
+làm mini practice, nhận giải thích theo level, có dẫn nguồn từ tài liệu khóa học.
 ```
 
 - **Công cụ lớn này phục vụ ai** (học viên / coach / instructor / admin): Học viên (chính), coach, instructor
-- **2 Red Flag đáng lo nhất (chép từ track card)**: 1. Cá nhân hóa giả — AI chỉ đổi tên học viên, nội dung gợi ý giống hệt nhau cho mọi người  2. Không có cách đo "học viên có tốt lên không" — pilot xong không biết thành công hay thất bại
+- **2 Red Flag đáng lo nhất (chép từ track card)**: 1. Bịa nội dung khóa học — AI trả lời nghe hay nhưng không có nguồn từ handbook/slide thật, học viên tin theo rồi hiểu sai  2. Làm học viên hỏi bot thay vì đọc tài liệu — gia sư thay thế việc đọc thay vì hỗ trợ việc đọc, comprehension giảm
 
 ---
 

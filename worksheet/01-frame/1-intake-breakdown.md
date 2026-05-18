@@ -41,9 +41,9 @@ Câu hỏi phụ (tự trả lời):
 
 ### Trả lời
 
-- **Big Ask, viết lại bằng lời nhóm (2–3 câu)**: Khóa AI Thực Chiến có ~500 học viên với background rất khác nhau (PM, founder, engineer, operator) nhưng lộ trình học gần như giống hệt nhau cho tất cả. Stakeholder muốn xây một hệ thống AI hiểu từng học viên — biết họ đang ở level nào, đã nắm được gì, còn yếu chỗ nào — để sinh ra lộ trình học riêng thay vì ai cũng đi cùng một con đường.
-- **Tại sao bây giờ**: Sau D28, khóa bước vào 6 tuần thực chiến — giai đoạn đòi hỏi học viên áp dụng đúng concept đã học. Học viên với background khác nhau cần biết họ phải bổ sung gì trước khi vào sprint, nhưng hiện tại không có gì giúp họ biết điều đó một cách cá nhân hóa. Coach không thể đưa gợi ý riêng cho 500 người trong thời gian có hạn.
-- **Người dùng đầu tiên cụ thể**: Học viên track Product (~80 người) vừa nộp bài D28, đang chuẩn bị bước vào 6 tuần thực chiến và chưa biết mình còn yếu concept nào.
+- **Big Ask, viết lại bằng lời nhóm (2–3 câu)**: LMS hiện tại chỉ là kho tài liệu — học viên đọc thụ động, không hiểu thì hỏi Discord hoặc bỏ qua. Stakeholder muốn biến LMS thành gia sư tương tác: học viên có thể hỏi lại ngay trong khi đọc, nhận giải thích theo level của mình, làm bài tập nhỏ để kiểm tra hiểu biết — và mọi câu trả lời đều có dẫn nguồn từ tài liệu khóa học, không phải AI tự bịa.
+- **Tại sao bây giờ**: Sau D28, học viên bước vào 6 tuần thực chiến cần áp dụng đúng framework (Problem Framing, Build/Buy/Boost, AI Pilot Plan). Nếu học viên không nắm concept trong D28, họ vào sprint với lỗ hổng kiến thức chưa biết. LMS đã có đủ tài liệu (handbook, slide, template) nhưng không có cơ chế tương tác — học viên không biết mình đọc sai hay đúng.
+- **Người dùng đầu tiên cụ thể**: Học viên track Product (~80 người) đang đọc handbook/slide D28 và gặp khó khăn với concept mới như Double Diamond, Build/Buy/Boost, Exit Criteria — những concept cần hiểu đúng trước khi làm lab.
 
 ## Phần B — Tách công cụ lớn thành 5–8 use case
 
@@ -51,13 +51,13 @@ Nhìn mục **Big Vision Modules** trong track card. Mỗi dòng = 1 use case l�
 
 | # | Use case (AI làm gì · cho ai · để họ làm được gì) | Người dùng | Làm được độc lập? |
 |---|---|---|---|
-| 1 | AI chẩn đoán kỹ năng từ quiz đầu/giữa khóa → tạo lộ trình học cá nhân cho từng học viên để họ biết bắt đầu từ đâu | Học viên | Có |
-| 2 | AI phân tích bài nộp lab → gợi ý 3 tài liệu/concept cần xem lại theo lỗi cụ thể trong bài | Học viên | Có |
-| 3 | AI sinh lộ trình bù sau D28 cho học viên sai nhiều ở Build/Buy/Boost & Pilot Plan → chuẩn bị 6 tuần thực chiến | Học viên | Có (cần bài nộp D28) |
-| 4 | AI theo dõi tiến độ học tập theo concept xuyên khóa → hiển thị trên dashboard cho học viên biết họ đang ở đâu | Học viên, Coach | Không — phụ thuộc #1 và hệ thống tracking |
-| 5 | AI gợi ý peer learning: ghép đôi học viên có điểm mạnh/yếu bổ sung nhau → tăng hỗ trợ peer-to-peer | Học viên, Coach | Không — phụ thuộc #1 (cần profile kỹ năng) |
-| 6 | AI sinh quiz kiểm tra điểm yếu định kỳ theo concept → học viên biết tiến độ tự học theo tuần | Học viên | Không — phụ thuộc #1 |
-| 7 | AI tạo view cho coach: danh sách học viên cần can thiệp ngay theo mức độ → coach ưu tiên đúng người | Coach | Không — phụ thuộc #4 |
+| 1 | AI trả lời câu hỏi học viên về nội dung D28 (Frame/Solution/Pilot Plan) kèm dẫn nguồn từ handbook/slide → học viên hiểu concept đang đọc mà không cần rời khỏi LMS | Học viên | Có |
+| 2 | AI gia sư Socratic: khi học viên hỏi đáp án trực tiếp → đặt câu hỏi ngược để học viên suy luận thay vì cho đáp án thẳng | Học viên | Có |
+| 3 | AI tạo mini practice 5 câu sau mỗi phần D28 (Frame / Solution / Pilot Plan) → học viên tự kiểm tra hiểu biết trước khi sang phần tiếp | Học viên | Có |
+| 4 | AI giải thích concept theo 3 level (cơ bản / áp dụng / nâng cao) theo yêu cầu → phù hợp với background khác nhau (PM/founder/engineer) | Học viên | Có |
+| 5 | AI gợi ý "bài tiếp theo" dựa trên câu hỏi vừa đặt → học viên biết nên đọc gì tiếp, không bị lạc trong LMS | Học viên | Không — phụ thuộc UC1 (cần biết học viên hỏi gì) |
+| 6 | AI tổng hợp câu hỏi học viên theo concept → dashboard cho instructor thấy chỗ nào bị hỏi nhiều → phát hiện confusion để can thiệp live | Instructor, Coach | Không — phụ thuộc UC1 (cần dữ liệu câu hỏi thật) |
+| 7 | AI tổng hợp FAQ sau mỗi buổi D28 từ câu hỏi Discord → tài liệu tham khảo cho lần sau + giảm câu hỏi lặp lại | Instructor, Coach | Có (độc lập, chỉ cần log Discord) |
 
 Cần ít nhất **4 use case thật sự độc lập** (làm được mà không cần cái khác xong trước). Nếu nhiều cái phụ thuộc nhau → gộp hoặc viết lại cho tách bạch.
 
@@ -65,14 +65,15 @@ Cần ít nhất **4 use case thật sự độc lập** (làm được mà khô
 
 ## Phát hiện ban đầu
 
-- Chỉ có UC1, UC2, UC3 là độc lập hoàn toàn — làm được mà không cần cái khác xong trước. Các UC còn lại (4, 5, 6, 7) đều phụ thuộc.
-- UC2 và UC3 rất gần nhau về bản chất (đều dùng bài nộp lab → gợi ý cá nhân); có thể gộp thành 1 Quick Win.
-- Data sẵn có ngay cho UC2/UC3 (bài nộp D28 + rubric) — không cần xây infrastructure mới.
+- UC1, UC2, UC3, UC4, UC7 là độc lập hoàn toàn — làm được mà không cần cái khác xong trước. Vượt yêu cầu ≥4.
+- UC5 và UC6 đều phụ thuộc UC1 — chúng là Phase 2 tự nhiên sau UC1 pilot xong.
+- UC1 là nền tảng của cả track: không có chatbot Q&A → không có dashboard (UC6), không có gợi ý tiếp theo (UC5).
+- UC3 (mini practice) rất gần UC1 về kỹ thuật (cùng dùng LLM + tài liệu) → có thể build song song hoặc gộp vào Quick Win.
 
 ## Câu hỏi mở (mang sang bước chọn Quick Win)
 
-- UC1 và UC2/UC3 đều mạnh — cái nào có evidence nhanh hơn, ít rủi ro hơn trong 2 tuần?
-- Coach có sẵn sàng review output AI trước khi gửi cho học viên không? Bao nhiêu thời gian họ có?
+- UC1 và UC3 đều mạnh — cái nào nên là Quick Win duy nhất, hay gộp thành 1?
+- Kênh deploy chatbot nào học viên thật sự dùng — trong LMS, Discord bot, hay standalone link?
 
 ---
 
@@ -82,7 +83,7 @@ Cần ít nhất **4 use case thật sự độc lập** (làm được mà khô
 |---|---|
 | Cả nhóm phát biểu lại Big Ask giống nhau, không cần nhìn card | ✓ |
 | Có 5–8 use case dạng "AI làm X cho ai để Y" | ✓ (7 use case) |
-| Có ≥4 use case thật sự độc lập | ✓ (UC1, UC2, UC3 độc lập hoàn toàn) |
+| Có ≥4 use case thật sự độc lập | ✓ (UC1, UC2, UC3, UC4, UC7 độc lập) |
 | Nhóm KHÔNG còn ý định pitch "build cả platform" | ✓ |
 
 Sau bước này, mở `2-quick-win.md` — chấm điểm chọn 1 lát cắt làm trước.

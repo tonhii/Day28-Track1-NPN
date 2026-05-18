@@ -25,9 +25,9 @@ Bỏ context AI20k sang một bên. Mô tả Quick Win của nhóm như một b�
 
 Dạng bài (the pattern) đó gần như chắc chắn đã có người làm ở ngành khác. Tìm ra dạng bài → tìm ra người đã giải nó.
 
-- **Quick Win của nhóm, viết lại thành 1 dạng bài chung (không có chữ domain)**: "artifact của người dùng + rubric đánh giá → feedback cá nhân hóa + danh sách tài liệu học tiếp theo phù hợp với lỗ hổng phát hiện được" — đây là bài **rubric-based gap analysis + personalized learning recommendation**
-- **Input → output thực chất là gì**: Bài nộp text (3 file FINAL) + Rubric 5 Gate → Danh sách 3 concept/tài liệu cần xem lại (tên cụ thể + link + 1 câu giải thích)
-- **Ràng buộc không bỏ được (lấy từ `00-context.md`)**: Privacy (cần consent), Human review (coach xem trước khi gửi), Citation (phải trỏ tài liệu thật trong khóa), Budget nhỏ (<$10 API)
+- **Quick Win của nhóm, viết lại thành 1 dạng bài chung (không có chữ domain)**: "câu hỏi tự nhiên về tài liệu học → câu trả lời kèm nguồn cụ thể, giới hạn trong corpus đã định, nói không biết nếu ngoài phạm vi" — đây là bài **scope-limited Q&A với grounded citation (RAG hoặc context-stuffed LLM)**
+- **Input → output thực chất là gì**: Câu hỏi text của học viên → câu trả lời ngắn + tên section/đoạn trích từ handbook D28; HOẶC "ngoài phạm vi, hỏi coach"
+- **Ràng buộc không bỏ được (lấy từ `00-context.md`)**: Citation (phải trỏ section thật), Budget nhỏ (<$5), Human review (coach kiểm 10 câu test trước deploy), Ranh giới gia sư/đáp án (hỗ trợ đọc, không làm bài thay)
 
 ## Quy trình 8 phút
 
@@ -54,10 +54,10 @@ Câu hỏi phụ (tự trả lời — viết ra cái nhóm *tìm thấy*, khôn
 
 | Tầng | Hỏi AI/web câu gì | Tìm được gì | Nguồn / 🧮 nếu là giả định |
 |---|---|---|---|
-| 1 · Map | "Bài rubric-based gap analysis + learning recommendation thường giải bằng hướng nào? 4-6 hướng." | (1) LLM với rubric làm system prompt — phân tích bài theo từng Gate, sinh gợi ý. (2) RAG: embed tài liệu khóa + query từ lỗi phát hiện → truy xuất đoạn liên quan. (3) Rule-based decision tree: map điểm rubric → nhóm tài liệu cố định. (4) Embedding similarity: so sánh bài nộp với "bài chuẩn" để phát hiện khoảng cách. (5) Fine-tuned classifier: train model nhận diện loại lỗi → đề xuất resource. | 🧮 Tổng hợp từ kiến thức AI/ML phổ biến; không có nguồn cụ thể cho từng hướng. |
-| 2 · Tiền lệ | "Tổ chức giáo dục nào đã dùng AI phân tích bài nộp → gợi ý tài liệu cá nhân hóa?" | **Khan Academy Khanmigo** (2023): dùng GPT-4 làm gia sư, phân tích câu trả lời học sinh và đặt câu hỏi Socratic + gợi ý bài tập phù hợp — tương tự pattern nhưng tập trung vào Q&A hơn là artifact nộp. **Coursera AI Feedback** (2023): AI phân tích bài peer review theo rubric, gợi ý phần cần cải thiện — rất gần pattern của nhóm. **Carnegie Mellon OLI** (Open Learning Initiative): adaptive learning platform dựa trên phân tích lỗi → gợi ý module học bù. | Khan Academy + Coursera: nguồn báo chí (🧮 chi tiết kỹ thuật không verify được). CMU OLI: oli.cmu.edu là thật nhưng chi tiết triển khai là 🧮. |
-| 3 · Phản chứng | "Ca nào dùng AI feedback theo rubric thất bại? Nguyên nhân gốc?" | **ETS e-rater essay scoring**: học sinh gaming rubric (viết câu dài/phức tạp mà không cần logic tốt vẫn được điểm cao) vì rubric quá đơn giản. **Automated grading ở MIT**: feedback AI nghe chuyên nghiệp nhưng không relate đến bài nộp cụ thể — copy từ template chung. **Recommendation engine bị bỏ qua**: nhiều hệ thống gợi ý tài liệu thất bại vì gợi ý quá nhiều (overload) hoặc gợi ý không liên quan trực tiếp đến lỗi vừa mắc. | 🧮 ETS e-rater là thật; chi tiết ca thất bại cụ thể là giả định tổng hợp từ nghiên cứu về AI grading failures. |
-| 4 · Thu hẹp | "Với budget <$10, cần human review, cần citation trỏ tài liệu thật, pilot 2 tuần — hướng nào khả thi nhất?" | **Hướng 1 (LLM + rubric system prompt + mapping table)**: khả thi nhất — không cần train model, rubric D28 đã có, mapping table tự build 2-3 giờ, Claude API <$5 cho 80 bài. **Hướng 2 (RAG nhẹ)**: khả thi trong 6 tuần nếu embed tài liệu khóa — phức tạp hơn nhưng citation tốt hơn. **Hướng 3 (Rule-based)**: nhanh nhất nhưng kém cá nhân hóa, dễ thành "cá nhân hóa giả". Không khả thi: Fine-tuned model (cần data lớn, vượt budget); Embedding similarity (cần "bài chuẩn" chưa có). | 🧮 Ước tính cost và effort là giả định; cần test thật để confirm. |
+| 1 · Map | "Bài scope-limited Q&A với grounded citation thường giải bằng hướng nào? 4-6 hướng." | (1) Context stuffing: nhét toàn bộ tài liệu vào context window LLM + prompt strict "chỉ trả lời từ tài liệu này, cite section, nói không biết nếu không thấy". (2) RAG (Retrieval-Augmented Generation): embed tài liệu → vector search → lấy top đoạn liên quan → generate answer kèm citation. (3) Keyword/semantic search thuần: không generate, chỉ tìm và trả về đoạn văn có sẵn. (4) Fine-tuned model trên FAQ domain. (5) Rule-based FAQ matching: câu hỏi khớp pattern → trả lời cố định. | 🧮 Tổng hợp từ kiến thức LLM/RAG phổ biến; không có nguồn cụ thể cho từng hướng. |
+| 2 · Tiền lệ | "Công cụ hay tổ chức nào đã xây scope-limited Q&A từ tài liệu nội bộ có citation?" | **Notion AI Q&A** (2023): hỏi về nội dung workspace Notion riêng, trả lời với citation trỏ đúng page → rất gần pattern của nhóm (corpus giới hạn + citation). **Perplexity AI** (2023): Q&A kèm citation từ web — pattern giống nhưng corpus mở, không giới hạn. **Langchain + ChromaDB docs chatbot**: tutorial phổ biến — embed PDF tài liệu nội bộ + Q&A kèm nguồn. **Stanford HAI DocsBot**: chatbot từ tài liệu khóa học, giới hạn trong scope. | Notion AI + Perplexity: nguồn báo chí (🧮 chi tiết kỹ thuật không verify được). Langchain tutorial: thật, có trên docs.langchain.com. Stanford HAI: 🧮 chi tiết triển khai. |
+| 3 · Phản chứng | "Ca nào dùng LLM Q&A từ tài liệu bị thất bại? Nguyên nhân gốc?" | **Harvey AI hallucination (legal)**: AI trích dẫn án lệ không tồn tại — luật sư tin theo, nộp lên tòa, bị phát hiện → mất uy tín toàn hệ thống. Lesson: citation sai 1 lần = mất trust lâu dài. **EdTech chatbot thay thế đọc tài liệu**: học viên hỏi bot thay vì đọc sách → comprehension giảm (MIT study 🧮); bot nghe hay nhưng không thay được quá trình đọc. **Scope creep**: nhiều chatbot bắt đầu "chỉ trả lời từ tài liệu" rồi drift sang general knowledge khi prompt không đủ strict → Red Flag #1 của track. | Harvey AI: thật (Reuters 2023). MIT study EdTech: 🧮 tổng hợp. Scope creep: 🧮 pattern quan sát. |
+| 4 · Thu hẹp | "Với handbook D28 ~40-60 trang, budget <$5, cần citation trỏ section, pilot 1 tuần — hướng nào khả thi nhất?" | **Hướng 1 (Context stuffing + Claude API)**: handbook D28 vừa trong context window Claude (~100K tokens) → nhét toàn bộ vào system prompt + instruction strict → không cần vector DB, không cần RAG setup, cost thấp nhất. **Hướng 2 (RAG nhẹ)**: embed handbook bằng OpenAI/Claude embeddings + ChromaDB → retrieval → generate. Phức tạp hơn nhưng scale tốt hơn khi tài liệu lớn hoặc nhiều ngày. **Hướng 3 (Rule-based FAQ)**: 30-40 câu hỏi phổ biến + câu trả lời cố định. Nhanh nhất, không hallucinate, nhưng không tương tác thật — chỉ trả lời câu đã dự đoán trước. | 🧮 Ước tính context size và cost; cần test thật để confirm. |
 
 ---
 
@@ -72,16 +72,17 @@ Câu hỏi phụ:
 
 | Hướng giải khả thi | Ai làm rồi (gần bài mình nhất) | Nguồn / 🧮 | Hợp ràng buộc `00-context`? |
 |---|---|---|---|
-| LLM (Claude API) + rubric D28 system prompt + mapping table lỗi→tài liệu | Coursera AI Feedback (phân tích bài theo rubric + gợi ý) | 🧮 chi tiết kỹ thuật Coursera | Có — budget <$10 ✓, human review ✓, citation trỏ tài liệu thật ✓ |
-| RAG nhẹ: embed tài liệu khóa (slide+handbook) + query từ lỗi phát hiện | Khan Academy Khanmigo (RAG-based Q&A có citation) | 🧮 chi tiết kỹ thuật Khanmigo | Có — nhưng setup phức tạp hơn (2-3 ngày thay vì vài giờ), vẫn trong 2 tuần ✓ |
-| Rule-based decision tree: Gate trượt → nhóm tài liệu cố định | CMU OLI (adaptive learning theo module) | 🧮 | Có — nhưng rủi ro "cá nhân hóa giả" cao (Red Flag #1 của track), không đủ cá nhân hóa ✗ |
+| Context stuffing: handbook D28 → system prompt Claude API + instruction strict citation + fallback "không biết" | Notion AI Q&A (corpus giới hạn + citation theo page) | 🧮 chi tiết kỹ thuật Notion | Có — budget <$5 ✓, không cần infra phức tạp ✓, citation section ✓, deploy nhanh ✓ |
+| RAG nhẹ: embed handbook D28 + slide → ChromaDB → query → generate với citation | Langchain + ChromaDB docs chatbot tutorial | Thật (docs.langchain.com) | Có — nhưng setup 1-2 ngày thay vì vài giờ; overkill cho corpus nhỏ (~40-60 trang) ✗ tương đối |
+| Rule-based FAQ: 30-40 câu hỏi phổ biến → câu trả lời cố định từ handbook | N/A | N/A | Có về budget — nhưng không tương tác thật, không cover câu hỏi mới, Red Flag ranh giới ✗ |
 
 **"Đi từ 5 lên" — nhóm kế thừa cụ thể cái gì** (1–2 câu):
 
 ```text
-Kế thừa pattern của Coursera AI Feedback: dùng LLM làm lớp trung gian phân tích bài nộp
-theo rubric, không cần train model mới. Thứ AI20k cần build thêm là mapping table riêng
-(Gate/lỗi → tài liệu khóa cụ thể) — đây là phần domain-specific chưa ai làm sẵn.
+Kế thừa pattern context-stuffed Q&A từ Notion AI + Harvey AI lesson (citation sai = mất trust):
+chỉ cần viết đúng system prompt với instruction strict (cite section, nói không biết, không bịa)
+và nhét handbook D28 vào context. Thứ AI20k cần build thêm là instruction guard cụ thể
+cho context khóa học — phần domain-specific chưa ai làm sẵn cho AI Thực Chiến.
 ```
 
 ---
@@ -90,14 +91,14 @@ theo rubric, không cần train model mới. Thứ AI20k cần build thêm là m
 
 Ghi nhanh 2–3 cái đáng chú ý nhất (chưa phải quyết định — quyết định ở file FINAL):
 
-- Ca thất bại của ETS e-rater dạy bài học quan trọng: mapping table phải dựa trên chất lượng lập luận, không chỉ hình thức văn bản — rubric D28 đã có cái này (Gate rõ ràng).
-- Hướng Rule-based rất hấp dẫn vì đơn giản nhưng đúng là "cá nhân hóa giả" — Red Flag #1 của track. Loại.
-- RAG có thể là Phase 2 sau khi LLM + rubric pilot thành công — không cần xây ngay.
+- Bài học Harvey AI là quan trọng nhất: 1 citation sai = mất trust toàn hệ thống. System prompt phải có guard "nếu không tìm thấy section cụ thể → nói không biết, không đoán mò."
+- Context stuffing đơn giản hơn RAG rất nhiều cho corpus nhỏ — handbook D28 vừa trong 100K token. Không cần xây infra phức tạp cho pilot 1 tuần.
+- Rule-based FAQ bị loại vì không tương tác thật (không trả lời câu hỏi mới) và dễ thành gia sư giả — Red Flag #2 của track.
 
 ## Câu hỏi mở (mang sang bước chốt)
 
-- Mapping table lỗi→tài liệu nên có bao nhiêu entries là đủ? (5 Gate × 2-3 lỗi phổ biến/Gate = ~15 entries?)
-- Claude model nào phù hợp nhất — Haiku (rẻ, nhanh) hay Sonnet (hiểu sắc thái hơn)?
+- Cần instruction guard gì trong system prompt để ngăn chatbot drift sang general knowledge ngoài D28?
+- Slide skeleton và handbook D28 khác nhau về format — cần pre-process trước khi nhét vào context không?
 
 ---
 
@@ -105,10 +106,10 @@ Ghi nhanh 2–3 cái đáng chú ý nhất (chưa phải quyết định — quy
 
 | Hạng mục | Xong? |
 |---|---|
-| Gọi được dạng bài trong 1 câu, không còn chữ domain | ✓ (rubric-based gap analysis + personalized learning recommendation) |
+| Gọi được dạng bài trong 1 câu, không còn chữ domain | ✓ (scope-limited Q&A với grounded citation) |
 | Đủ 4 tầng deep research, tầng nào cũng có kết quả | ✓ |
 | Mỗi kết quả có nguồn, hoặc đánh dấu 🧮 nếu là giả định | ✓ |
-| Rút về 2–3 hướng + nói được "đi từ 5 lên" cái gì | ✓ (kế thừa pattern Coursera + thêm mapping table riêng) |
+| Rút về 2–3 hướng + nói được "đi từ 5 lên" cái gì | ✓ (kế thừa Notion Q&A pattern + bài học Harvey AI về citation guard) |
 
 Hàng nào chưa xong → quay lại Phần A, đừng sang bước chốt vội.
 
