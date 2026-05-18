@@ -1,4 +1,17 @@
-> **Repo:** https://github.com/VinUni-AI20k/Day28-Track01-AI-Pilot-Plan
+# Day 28 — Nhóm 2A202600369
+
+## Thành viên
+- Hồ Thị Tố Nhi (2A202600369) · Lê Thị Phương (2A202600107) · Trần Thị Kim Ngân (2A202600432)
+- Track: Track 1 — Lộ trình học cá nhân hóa
+
+## Bản nộp
+- 🎯 [Problem Framing](./worksheet/01-frame/3-FINAL-problem-framing.md)
+- 🎯 [Solution + bản vẽ trực quan](./worksheet/02-solution/2-FINAL-solution.md)
+- 🎯 [5-slide Pitch + AI Support Log](./worksheet/03-pilot-plan/2-FINAL-pitch.md)
+
+---
+
+> **Repo gốc của giảng viên:** https://github.com/VinUni-AI20k/Day28-Track01-AI-Pilot-Plan
 
 # Day 28 — AI20k Learning OS: từ một bài toán mơ hồ → một AI Pilot Plan đủ để quyết
 

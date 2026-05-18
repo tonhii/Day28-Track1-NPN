@@ -41,9 +41,9 @@ Câu hỏi phụ (tự trả lời):
 
 ### Trả lời
 
-- **Big Ask, viết lại bằng lời nhóm (2–3 câu)**: [...]
-- **Tại sao bây giờ**: [...]
-- **Người dùng đầu tiên cụ thể**: [...]
+- **Big Ask, viết lại bằng lời nhóm (2–3 câu)**: Khóa AI Thực Chiến có ~500 học viên với background rất khác nhau (PM, founder, engineer, operator) nhưng lộ trình học gần như giống hệt nhau cho tất cả. Stakeholder muốn xây một hệ thống AI hiểu từng học viên — biết họ đang ở level nào, đã nắm được gì, còn yếu chỗ nào — để sinh ra lộ trình học riêng thay vì ai cũng đi cùng một con đường.
+- **Tại sao bây giờ**: Sau D28, khóa bước vào 6 tuần thực chiến — giai đoạn đòi hỏi học viên áp dụng đúng concept đã học. Học viên với background khác nhau cần biết họ phải bổ sung gì trước khi vào sprint, nhưng hiện tại không có gì giúp họ biết điều đó một cách cá nhân hóa. Coach không thể đưa gợi ý riêng cho 500 người trong thời gian có hạn.
+- **Người dùng đầu tiên cụ thể**: Học viên track Product (~80 người) vừa nộp bài D28, đang chuẩn bị bước vào 6 tuần thực chiến và chưa biết mình còn yếu concept nào.
 
 ## Phần B — Tách công cụ lớn thành 5–8 use case
 
@@ -51,14 +51,13 @@ Nhìn mục **Big Vision Modules** trong track card. Mỗi dòng = 1 use case l�
 
 | # | Use case (AI làm gì · cho ai · để họ làm được gì) | Người dùng | Làm được độc lập? |
 |---|---|---|---|
-| 1 | | | Có / Không — phụ thuộc # |
-| 2 | | | |
-| 3 | | | |
-| 4 | | | |
-| 5 | | | |
-| 6 | | | |
-| 7 | | | |
-| 8 | | | |
+| 1 | AI chẩn đoán kỹ năng từ quiz đầu/giữa khóa → tạo lộ trình học cá nhân cho từng học viên để họ biết bắt đầu từ đâu | Học viên | Có |
+| 2 | AI phân tích bài nộp lab → gợi ý 3 tài liệu/concept cần xem lại theo lỗi cụ thể trong bài | Học viên | Có |
+| 3 | AI sinh lộ trình bù sau D28 cho học viên sai nhiều ở Build/Buy/Boost & Pilot Plan → chuẩn bị 6 tuần thực chiến | Học viên | Có (cần bài nộp D28) |
+| 4 | AI theo dõi tiến độ học tập theo concept xuyên khóa → hiển thị trên dashboard cho học viên biết họ đang ở đâu | Học viên, Coach | Không — phụ thuộc #1 và hệ thống tracking |
+| 5 | AI gợi ý peer learning: ghép đôi học viên có điểm mạnh/yếu bổ sung nhau → tăng hỗ trợ peer-to-peer | Học viên, Coach | Không — phụ thuộc #1 (cần profile kỹ năng) |
+| 6 | AI sinh quiz kiểm tra điểm yếu định kỳ theo concept → học viên biết tiến độ tự học theo tuần | Học viên | Không — phụ thuộc #1 |
+| 7 | AI tạo view cho coach: danh sách học viên cần can thiệp ngay theo mức độ → coach ưu tiên đúng người | Coach | Không — phụ thuộc #4 |
 
 Cần ít nhất **4 use case thật sự độc lập** (làm được mà không cần cái khác xong trước). Nếu nhiều cái phụ thuộc nhau → gộp hoặc viết lại cho tách bạch.
 
@@ -66,13 +65,14 @@ Cần ít nhất **4 use case thật sự độc lập** (làm được mà khô
 
 ## Phát hiện ban đầu
 
-- [...]
-- [...]
+- Chỉ có UC1, UC2, UC3 là độc lập hoàn toàn — làm được mà không cần cái khác xong trước. Các UC còn lại (4, 5, 6, 7) đều phụ thuộc.
+- UC2 và UC3 rất gần nhau về bản chất (đều dùng bài nộp lab → gợi ý cá nhân); có thể gộp thành 1 Quick Win.
+- Data sẵn có ngay cho UC2/UC3 (bài nộp D28 + rubric) — không cần xây infrastructure mới.
 
 ## Câu hỏi mở (mang sang bước chọn Quick Win)
 
-- [...]
-- [...]
+- UC1 và UC2/UC3 đều mạnh — cái nào có evidence nhanh hơn, ít rủi ro hơn trong 2 tuần?
+- Coach có sẵn sàng review output AI trước khi gửi cho học viên không? Bao nhiêu thời gian họ có?
 
 ---
 
@@ -80,10 +80,10 @@ Cần ít nhất **4 use case thật sự độc lập** (làm được mà khô
 
 | Hạng mục | Xong? |
 |---|---|
-| Cả nhóm phát biểu lại Big Ask giống nhau, không cần nhìn card | / |
-| Có 5–8 use case dạng "AI làm X cho ai để Y" | / |
-| Có ≥4 use case thật sự độc lập | / |
-| Nhóm KHÔNG còn ý định pitch "build cả platform" | / |
+| Cả nhóm phát biểu lại Big Ask giống nhau, không cần nhìn card | ✓ |
+| Có 5–8 use case dạng "AI làm X cho ai để Y" | ✓ (7 use case) |
+| Có ≥4 use case thật sự độc lập | ✓ (UC1, UC2, UC3 độc lập hoàn toàn) |
+| Nhóm KHÔNG còn ý định pitch "build cả platform" | ✓ |
 
 Sau bước này, mở `2-quick-win.md` — chấm điểm chọn 1 lát cắt làm trước.
 

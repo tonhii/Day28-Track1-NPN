@@ -23,15 +23,16 @@ Việc của nhóm hôm nay đúng là việc một PM/PO AI làm ngoài doanh n
 
 ## 2. Track của nhóm (điền sau khi nhận track card)
 
-- **Track số / tên**: [...]
+- **Track số / tên**: Track 1 — Lộ trình học cá nhân hóa
 - **Big Ask — chép nguyên văn câu yêu cầu trong track card**:
 
 ```text
-[...]
+Xây hệ thống AI cá nhân hóa lộ trình học cho từng học viên dựa trên mục tiêu, level,
+tiến độ, điểm yếu và hành vi học tập của họ trên khóa AI Thực Chiến (~500 học viên).
 ```
 
-- **Công cụ lớn này phục vụ ai** (học viên / coach / instructor / admin): [...]
-- **2 Red Flag đáng lo nhất (chép từ track card)**: 1. [...]  2. [...]
+- **Công cụ lớn này phục vụ ai** (học viên / coach / instructor / admin): Học viên (chính), coach, instructor
+- **2 Red Flag đáng lo nhất (chép từ track card)**: 1. Cá nhân hóa giả — AI chỉ đổi tên học viên, nội dung gợi ý giống hệt nhau cho mọi người  2. Không có cách đo "học viên có tốt lên không" — pilot xong không biết thành công hay thất bại
 
 ---
 

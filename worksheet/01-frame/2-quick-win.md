@@ -37,45 +37,49 @@ Câu hỏi phụ (tự trả lời):
 
 | Use case | Impact | Feasibility | Evidence nhanh | Risk (cao = an toàn) | Tổng |
 |---|:--:|:--:|:--:|:--:|:--:|
-| | | | | | |
-| | | | | | |
-| | | | | | |
-| | | | | | |
+| UC2/UC3: AI phân tích bài nộp D28 → gợi ý 3 tài liệu cần xem lại | 4 | 5 | 5 | 5 | **19** |
+| UC1: AI chẩn đoán từ quiz → lộ trình cá nhân đầu khóa | 5 | 3 | 2 | 3 | **13** |
+| UC5: AI gợi ý peer learning theo điểm mạnh/yếu | 3 | 3 | 2 | 4 | **12** |
+| UC7: View cho coach — ai cần can thiệp ngay | 4 | 2 | 2 | 3 | **11** |
+| UC4: Dashboard tiến độ theo concept | 3 | 2 | 1 | 3 | **9** |
 
 (Thang điểm chi tiết: `templates/quick-win-scoring.md`.)
 
 ## Phần B — 1 lý do nên / 1 lý do không, cho top 2
 
-**Ứng viên A — _______**
+**Ứng viên A — UC2/UC3: AI phân tích bài nộp D28 → gợi ý 3 tài liệu cần xem lại**
 
 ```text
-Nên chọn vì:
-Không nên vì:
+Nên chọn vì: Data có sẵn ngay (bài nộp D28 + rubric 5 Gate), test được trong 1 tuần,
+             impact rõ cho 80 học viên track Product trước 6 tuần thực chiến.
+Không nên vì: Cần mapping table lỗi→tài liệu chưa có, phải build thêm 2-3 giờ đầu.
 ```
 
-**Ứng viên B — _______**
+**Ứng viên B — UC1: AI chẩn đoán từ quiz → lộ trình cá nhân**
 
 ```text
-Nên chọn vì:
-Không nên vì:
+Nên chọn vì: Impact cao nhất về lâu dài — học viên có lộ trình riêng từ đầu.
+Không nên vì: Data quiz đầu khóa đã cũ (thời điểm đã qua), cần infrastructure
+             phức tạp hơn để lưu trữ và track tiến độ, evidence nhanh rất khó.
 ```
 
 ## Phần C — Chốt Quick Win
 
-- **Quick Win nhóm chọn**: [...]
-- **Vì sao chọn cái này trước** (2–4 câu, bám điểm + impact + evidence nhanh): [...]
-- **Ai trong AI20k sẽ ủng hộ pilot này** (và vì sao họ care — "có người ủng hộ" thường quan trọng hơn "impact cao"): [...]
-- **Nhóm KHÔNG chọn gì + vì sao** (≥2 use case bị loại): 1. [...]  2. [...]
+- **Quick Win nhóm chọn**: AI phân tích bài nộp D28 của từng học viên theo rubric 5 Gate → sinh danh sách cá nhân 3 concept/tài liệu cần xem lại trước 6 tuần thực chiến
+- **Vì sao chọn cái này trước** (2–4 câu, bám điểm + impact + evidence nhanh): Tổng điểm 19/20 — cao nhất trong 5 ứng viên. Data có sẵn ngay sau D28 (bài nộp + rubric), không cần xây hệ thống tracking mới. Evidence nhanh: test được trong 1 tuần với 5 bài mẫu trước khi scale. Risk thấp vì chỉ gợi ý học liệu, không chấm điểm, coach vẫn là người quyết.
+- **Ai trong AI20k sẽ ủng hộ pilot này** (và vì sao họ care): Instructor D28 — cần bridge cá nhân hóa sau D28 trước khi học viên vào 6 tuần thực chiến, không có gì hiện tại. Coach track Product — muốn tiết kiệm thời gian đưa feedback cá nhân (hiện mất ~5 phút/người nếu làm thủ công).
+- **Nhóm KHÔNG chọn gì + vì sao**: 1. UC1 (chẩn đoán từ quiz đầu khóa) — thời điểm đã qua, data quiz cũ, cần infrastructure phức tạp, evidence không thể có trong 1-2 tuần.  2. UC7 (view cho coach) — phụ thuộc hoàn toàn vào UC4 (dashboard tiến độ) chưa có, không thể pilot độc lập.
 
 ---
 
 ## Phát hiện ban đầu
 
-- [...]
+- UC2/UC3 vượt trội so với các ứng viên còn lại vì có data sẵn + evidence nhanh + risk thấp — 3 yếu tố quan trọng nhất cho Quick Win.
 
 ## Câu hỏi mở (mang sang Problem Framing)
 
-- [...]
+- Số học viên thật sự có Gate trượt trong D28 là bao nhiêu? (Hiện tại chỉ là giả định ~60%)
+- Kênh gửi gợi ý về cho học viên là Discord, LMS hay email — cái nào học viên thật sự đọc?
 
 ---
 
@@ -83,10 +87,10 @@ Không nên vì:
 
 | Hạng mục | Xong? |
 |---|---|
-| Có bảng chấm 4 trục cho ≥4 use case | / |
-| Chốt 1 Quick Win, lý do bám số/impact (không "nghe hay") | / |
-| Nêu rõ ai ủng hộ pilot này | / |
-| Ghi rõ ≥2 phần KHÔNG chọn + lý do | / |
+| Có bảng chấm 4 trục cho ≥4 use case | ✓ (5 use case) |
+| Chốt 1 Quick Win, lý do bám số/impact (không "nghe hay") | ✓ |
+| Nêu rõ ai ủng hộ pilot này | ✓ (Instructor D28 + Coach track Product) |
+| Ghi rõ ≥2 phần KHÔNG chọn + lý do | ✓ (UC1 và UC7) |
 
 ⚑ Đây là phần coach kiểm tra ở Mốc 1: *"Vì sao không làm full tool? Vì sao chọn lát cắt này trước?"*
 
